@@ -139,6 +139,10 @@ footer{
     justify-content: space-between;
     border-bottom: 4px solid black;
 }
+.folder-photo-album{
+    display: grid;
+    grid-template-columns: 90%;
+}
 .app-name{
     font-size: large;
 }

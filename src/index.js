@@ -190,7 +190,7 @@ let fetch_posts = async function (id) {
     let rs_img = await fs_img.json().then(data=>{
         
         img.setAttribute('class','card-img-top')
-        let n = Math.ceil(Math.random() * 14)+1
+        let n = Math.ceil(Math.random() * 14)
         img.setAttribute('src', `./img/Imgs/img${n}.png`)
         post_holder.appendChild(img)
     })
