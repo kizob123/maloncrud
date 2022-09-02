@@ -81,13 +81,64 @@
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <input type="text" href="#" class="" placeholder="add comment..."> </input>
+                <input type="text" name="id" class="id" style="display: none;"> </input>
+                <input type="text" name="comm" class="comm" placeholder="add comment..."> </input>
             </div>
             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="modal-close btn btn-secondary" data-dismiss="modal">Close</button>
         <input type="submit" class="modal-save btn btn-primary" value="Enter Commnt"></input>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal add-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add-form" action="" method="post" enctype=multipart/form-data>
+            <div class="card" style="width: 18rem;">
+            
+            <div class="card-body">
+                <h5 class="card-title">Post a photo blog</h5>
+                <input type="text" name="title" id="title" placeholder="Enter title">
+                <input type="file" name="photo" id="photo">
+                <textarea class="body" name="body" placeholder="add post..."></textarea>
+                <input type="number" name="album-number" id="album-number" placeholder="write an album no. 1-10">
+            </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="modal-close btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="modal-save btn btn-primary" value="Post"></input>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal info-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="info-success"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="modal-close btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="modal-save btn btn-primary" value="Login"></input>
       </div>
       </form>
     </div>
@@ -161,7 +212,41 @@
     
     <script src="./src/index.js"></script>
     <script>
-      
+        document.querySelector('.upload-holder').addEventListener('click',function(e){
+            $('.add-modal').modal('show')
+        })
+          $('.add-form').on('submit', async function (e) {
+        e.preventDefault()
+        console.log(e.currentTarget)
+        const formData = new FormData(e.currentTarget)
+        console.log(formData);
+        const objFormData = Object.fromEntries(formData.entries())
+        console.log(objFormData);
+
+        const jsonFormData = JSON.stringify(objFormData)
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts`, {
+            method: 'POST',
+            body: jsonFormData,
+            mode: "cors",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+
+        if (!res.ok) {
+            const err = await res.text()
+            throw new Error(err)
+        }
+        res.json().then(
+            data => {
+                console.log(data);
+                
+                $('.add-modal').modal('hide')
+                $('.info-modal').modal('show').find('.info-success').text('post entered')
+            }
+        )
+        return false
+    })
     </script>
 </body>
 </html>

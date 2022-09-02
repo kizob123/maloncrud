@@ -34,7 +34,6 @@ nav{
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    border-right: 3px solid black;
 }
 .album-top{
     display: none;

@@ -1,30 +1,53 @@
 let album = []
 $(function () {
-     $(".cmm").on('click', function (e) {
-         //$('.modal').modal('show')
-         $('.log-modal').modal('show')
-        
-     })
     $(".login").on('click',function(e){
-    //$('.modal').modal('show')
+    
     $('.log-modal').modal('show')
     })
     $(".register").on('click', function (e) {
-        //$('.modal').modal('show')
+        
         $('.reg-modal').modal('show')
     })
    
     $('.modal-close').on('click', function (e) {
         $('.modal').modal('hide')
     })
-    // $('.modal').on('shown.bs.modal', function () {
-    //     $('#myInput').trigger('focus')
-    // })
-    $('.album-n').on('mousedown', function (e) {
-        let n= $(this).attr('value')
-        document.querySelector('.folder-photo-album').innerHTML = ""
-        fetch_album(n)
+    $('.close').on('click', function (e) {
+        $('.modal').modal('hide')
     })
+    
+    $('#comment-form').on('submit', async function (e) {
+        e.preventDefault()
+        console.log(e.currentTarget)
+        const formData = new FormData(e.currentTarget)
+        console.log(formData);
+        const objFormData = Object.fromEntries(formData.entries())
+        console.log(objFormData);
+
+        const jsonFormData = JSON.stringify(objFormData)
+        const res = await fetch(`https://jsonplaceholder.typicode.com/comments`, {
+            method: 'POST',
+            body: jsonFormData,
+            mode: "cors",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+
+        if (!res.ok) {
+            const err = await res.text()
+            throw new Error(err)
+        }
+        res.json().then(
+            data => {
+                console.log(data);
+                
+                $('.cm-modal').modal('hide')
+                $('.info-modal').modal('show').find('.info-success').text('comment entered')
+            }
+        )
+    })
+    
      $('#login-form').on('submit', async function (e) {
          e.preventDefault()
          console.log(e.currentTarget)
@@ -107,6 +130,11 @@ let fetch_album = async function (id) {
             single_album.setAttribute('role', 'button')
             single_album.setAttribute('href', '#')
             single_album.setAttribute('value', element.id)
+            single_album.addEventListener('click',function(e){
+                let n = $(this).attr('value')
+                document.querySelector('.folder-photo-album').innerHTML = ""
+                fetch_album(n)
+            })
             if (window.innerWidth>800)
             single_album.innerText = 'album ' + element.id;
             else{
@@ -157,9 +185,10 @@ let fetch_posts = async function (id) {
     let posts_holder = document.querySelector('.folder-photo-album')
     let post_holder = document.createElement('div')
     post_holder.setAttribute('class', 'card')
+    let img = document.createElement('img')
     let fs_img = await fetch(`http://jsonplaceholder.typicode.com/photos/${id}`)
     let rs_img = await fs_img.json().then(data=>{
-        let img = document.createElement('img')
+        
         img.setAttribute('class','card-img-top')
         let n = Math.ceil(Math.random() * 14)+1
         img.setAttribute('src', `./img/Imgs/img${n}.png`)
@@ -185,6 +214,15 @@ let fetch_posts = async function (id) {
             
             comment_btn.setAttribute('href', '#')
             comment_btn.innerText = 'Comment'
+            comment_btn.addEventListener('click',function(e){
+                $('.cm-modal').modal('show').find('.card-title').text(data.title)
+                console.log(img.getAttribute('src'));
+                $('.cm-modal').find('.card-img-top').attr("src",img.getAttribute('src'))
+                $('.cm-modal').find('.card-text').text(data.body)
+                
+                $('.cm-modal').find('.id').val(data.id)
+                console.log(data.id);
+            })
             post_.appendChild(single_post_title)
             post_.appendChild(document.createElement('hr'))
             post_.appendChild(single_post)
