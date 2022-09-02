@@ -68,6 +68,8 @@ $(function () {
          }
         res.json().then(
             data => {
+                console.log(data.length);
+               if(data.length){
                 console.log(data);
                 let n = Math.ceil(Math.random() * 14)
                 $('.pr_p').attr('src', `./img/Imgs/img${n}.png`)
@@ -75,6 +77,11 @@ $(function () {
                 $('.sign-o').css('display', 'block')
                 $('.pr_name').css('display', 'block').text(data[0].name)
                 $('.log-modal').modal('hide')
+               }
+               else{
+                   console.log('ooo');
+                   $('.err').text('you are not sign up').css({'color':'red','font-weigth':'bold'})
+               }
             }
         )
      })

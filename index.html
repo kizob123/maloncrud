@@ -16,7 +16,7 @@
 <body>
     <nav>
         <div class="profile_pix1">
-                    <img src="./img/pr_img.jpeg" alt="" srcset="">
+                    <img class="pr_p" src="./img/pr_img.jpeg" alt="" srcset="">
                 </div>
     </nav>
     <div class="content">
@@ -82,7 +82,7 @@
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <input type="text" name="id" class="id" style="display: none;"> </input>
-                <input type="text" name="comm" class="comm" placeholder="add comment..."> </input>
+                <input type="text" name="comm" class="comm" placeholder="add comment..." required> </input>
             </div>
             </div>
       </div>
@@ -109,10 +109,10 @@
             
             <div class="card-body">
                 <h5 class="card-title">Post a photo blog</h5>
-                <input type="text" name="title" id="title" placeholder="Enter title">
-                <input type="file" name="photo" id="photo">
-                <textarea class="body" name="body" placeholder="add post..."></textarea>
-                <input type="number" name="album-number" id="album-number" placeholder="write an album no. 1-10">
+                <input type="text" name="title" id="title" placeholder="Enter title" required>
+                <input type="file" name="photo" id="photo" required>
+                <textarea class="body" name="body" placeholder="add post..." required></textarea>
+                <input type="number" name="album-number" id="album-number" placeholder="write an album no. 1-10" required>
             </div>
             </div>
       </div>
@@ -154,9 +154,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="login-form" action="" method="post">
-            <input type="text" name="username " id="username" placeholder="username">
-            <input type="email" name="email " id="email" placeholder="email ">
+        <form id="login-form" action="" method="post"><p class="err"></p>
+            <input type="text" name="username " id="username" placeholder="username" required>
+            <input type="email" name="email " id="email" placeholder="email " required>
       </div>
       <div class="modal-footer">
         <button type="button" class="modal-close btn btn-secondary" data-dismiss="modal">Close</button>
