@@ -30,6 +30,7 @@ $(function () {
             body: jsonFormData,
             mode: "cors",
             headers: {
+                
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
@@ -133,18 +134,21 @@ let fetch_album = async function (id) {
         data.forEach(element => {
             let single_album = document.createElement('a')
             console.log(window.innerWidth);
-            single_album.setAttribute('class', 'album-n btn btn-secondary btn-md fw-bold mt-1')
             single_album.setAttribute('role', 'button')
             single_album.setAttribute('href', '#')
             single_album.setAttribute('value', element.id)
             single_album.addEventListener('click',function(e){
                 let n = $(this).attr('value')
                 document.querySelector('.folder-photo-album').innerHTML = ""
-                fetch_album(n)
+                fetch_posts(n)
             })
-            if (window.innerWidth>800)
+            if (window.innerWidth>800){
             single_album.innerText = 'album ' + element.id;
+            single_album.setAttribute('class', 'album-n btn btn-secondary btn-md fw-bold mt-1')
+            }
             else{
+            
+            single_album.setAttribute('class', 'album-n btn btn-secondary btn-md fw-bold mt-1 rounded-circle')
             document.querySelector('.album-top').setAttribute('style','display:block')
             single_album.innerText = element.id;
         }
@@ -191,7 +195,7 @@ let fetch_photos = async function (id) {
 let fetch_posts = async function (id) {
     let posts_holder = document.querySelector('.folder-photo-album')
     let post_holder = document.createElement('div')
-    post_holder.setAttribute('class', 'card')
+    post_holder.setAttribute('class', 'card h-200')
     let img = document.createElement('img')
     let fs_img = await fetch(`http://jsonplaceholder.typicode.com/photos/${id}`)
     let rs_img = await fs_img.json().then(data=>{
@@ -204,9 +208,6 @@ let fetch_posts = async function (id) {
     let fs_p = await fetch(`http://jsonplaceholder.typicode.com/posts/${id}`)
     let rs_p = await fs_p.json().then(data => {
        
-        
-        
-        
         let post_ = document.createElement('div')
         post_.setAttribute('class','card-body')
         

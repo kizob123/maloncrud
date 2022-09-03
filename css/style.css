@@ -21,6 +21,7 @@ nav{
 .thick-back-photo-books{
     display: flex;
     justify-content: center;
+    justify-self: center;
     height: inherit;
     width: 95%;
     overflow: visible;
@@ -34,6 +35,7 @@ nav{
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    margin-left: 4px;
 }
 .album-top{
     display: none;
@@ -43,7 +45,7 @@ nav{
     margin-top: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 .name-bar1{
     display: none;
@@ -51,7 +53,7 @@ nav{
 .folder-photo-album{
     position: relative;
     height: inherit;
-    width: 80%;
+    width: 98%;
     
 }
 .upload-holder{
@@ -96,19 +98,26 @@ nav{
     display: flex;
 }
 .card-body{
-  
+  height: 30%
 }
 .card{
     width: 90%;
     margin-top: 6%;
     margin-left: 6%;
     padding: 3px 3px 3px 3px;
+    height: 25rem;
+    
 }
 .card-title{
     background-color: rgb(191, 235, 243);
+    height: 10%;
 }
 .card-img-top{
-    height: 40%;
+    height: 50%;
+}
+.cmm{
+    position: relative;
+    bottom: -40%;
 }
 
 footer{
@@ -153,6 +162,9 @@ footer{
     display: block;
     width: 60px;
     height: 60px;
+    margin-top: 7px;
+    margin-left: 7px;
+    border-radius: 30px;
 }
 .profile_pix1 img{
     height: 80%;
@@ -160,12 +172,26 @@ footer{
 }
 .album-top{
     margin-top: 5px;
+    
+    display: flex;
+    justify-content: center;
+    
 }
 
 .album-c{
     font-size: x-small;
 }
+.album-n{
+    padding: auto;
+    width: 80%;
+    margin-left: 12%;
+}
 .post-box{
     display: none;
+    
 }
+.modal{
+      width: 30%;
+      height: 30%;  
+    }
 }
